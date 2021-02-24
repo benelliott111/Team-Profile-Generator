@@ -13,6 +13,8 @@ const inquirer = require("inquirer");
 
 let team = []
 
+
+
 async function getManagerInfo(){
     let managerInfo = await inquirer.prompt([
         {
@@ -53,7 +55,9 @@ async function getManagerInfo(){
             getInternInfo();
             break;
         case 'Finish team':
-            loadHTML();
+            let test = render(team);
+            console.log(test);
+            fs.writeFileSync(outputPath, test);
             break; 
     }
 }
@@ -76,9 +80,9 @@ async function getEnginnerInfo(){
             message: "Please enter your enginner's email"
         },
         {
-            name: "gitHub",
+            name: "github",
             type: "input",
-            message: "Please enter your enginner's gitHub"
+            message: "Please enter your enginner's github"
         },
         {
             name: "nextstep",
@@ -87,7 +91,7 @@ async function getEnginnerInfo(){
             choices: ["Build another engineer profile", "Build intern profile", "Finish team"]
         },
     ])
-    team.push(new Engineer(enginnerInfo.name, enginnerInfo.id, enginnerInfo.email, enginnerInfo.gitHub))
+    team.push(new Engineer(enginnerInfo.name, enginnerInfo.id, enginnerInfo.email, enginnerInfo.github))
 
     switch (enginnerInfo.nextstep){
         case 'Build another engineer profile':
@@ -97,7 +101,9 @@ async function getEnginnerInfo(){
             getInternInfo();
             break;
         case 'Finish team':
-            loadHTML();
+            let test = render(team);
+            console.log(test);
+            fs.writeFileSync(outputPath, test);
             break; 
     }
 }
@@ -141,15 +147,14 @@ async function getInternInfo(){
             getInternInfo();
             break;
         case 'Finish team':
-            loadHTML();
+            let test = render(team);
+            console.log(test);
+            fs.writeFileSync(outputPath, test);
             break; 
     }
     
 }
 
-function loadHTML(){
-    console.log(team)
-}
 getManagerInfo()
 
 // Write code to use inquirer to gather information about the development team members,
